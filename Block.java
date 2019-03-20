@@ -1,14 +1,27 @@
 import java.util.Date;
 
-class Block{
+class Data{
+	String patientName;
+	String diagnosis;
+	String nextConnected = "";
+	String dateAdded;
+
+	public Data(String p, String d, String n, String date){
+		this.patientName = p;
+		this.diagnosis = d;
+		this.nextConnected = n;
+		this.dateAdded = date;
+	}
+}
+
+class Block extends Data{
 	public String hash;
 	public String previousHash;
-	private String data;
 	private long timestamp;
 	private int nonce;
 
-	public Block(String data, String previousHash){
-		this.data = data;
+	public Block(String p, String d, String n, String date, String previousHash){
+		super(p, d, n, date);
 		this.previousHash = previousHash;
 		this.timestamp = new Date().getTime();
 		this.hash = calculateHash();
@@ -18,7 +31,7 @@ class Block{
 		String calculatedHash = StringUtil.applySha256(
 									previousHash +
 									Long.toString(timestamp) +
-									data +
+									patientName + diagnosis + nextConnected + dateAdded +
 									Integer.toString(nonce)
 								);
 		return calculatedHash;

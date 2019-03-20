@@ -1,8 +1,8 @@
 import java.util.ArrayList;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 
 class BlockChain{
-	public static int difficulty = 5;
+	public static int difficulty = 3;
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 
 	public static Boolean isChainValid(){
@@ -33,18 +33,17 @@ class BlockChain{
 	}
 
 	public static void main(String args[]) {
-		blockchain.add(new Block("Hi im the first block", "0"));
+		blockchain.add(new Block("User 1", "Cough and Cold", "", "20-03-2019", "0"));
 		System.out.println("Hash for block 1... ");
 		blockchain.get(0).mineBlock(difficulty);
 
+		 blockchain.add(new Block("User 2", "Fever", "", "15-03-2019", blockchain.get(blockchain.size() - 1).hash));
+		 System.out.println("Hash for block 2... ");
+		 blockchain.get(1).mineBlock(difficulty);		
 		
-		blockchain.add(new Block("Yo im the second block", blockchain.get(blockchain.size() - 1).hash));
-		System.out.println("Hash for block 2... ");
-		blockchain.get(1).mineBlock(difficulty);		
-		
-		blockchain.add(new Block("Hey im the third block", blockchain.get(blockchain.size() - 1).hash));
-		System.out.println("Hash for block 3... ");
-		blockchain.get(2).mineBlock(difficulty);
+		 blockchain.add(new Block("User 3", "Malaria", "", "20-03-2019", blockchain.get(blockchain.size() - 1).hash));
+		 System.out.println("Hash for block 3... ");
+		 blockchain.get(2).mineBlock(difficulty);
 
 		System.out.println("\nBlockChain is Valid: " + isChainValid());
 
