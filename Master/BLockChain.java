@@ -32,6 +32,10 @@ class BlockChain{
 		return true;
 	}
 
+	// public static Boolean verifyPrivateKey(String publicKey, String privateKey){
+		
+	// }
+	
 	public static void main(String args[]) {
 		blockchain.add(new Block("User 1", "Cough and Cold", "", "20-03-2019", "0"));
 		System.out.println("Hash for block 1... ");
@@ -41,7 +45,7 @@ class BlockChain{
 		 System.out.println("Hash for block 2... ");
 		 blockchain.get(1).mineBlock(difficulty);		
 		
-		 blockchain.add(new Block("User 3", "Malaria", "", "20-03-2019", blockchain.get(blockchain.size() - 1).hash));
+		 blockchain.add(new Block("User 1", "Malaria", "", "20-03-2019", blockchain.get(blockchain.size() - 1).hash));
 		 System.out.println("Hash for block 3... ");
 		 blockchain.get(2).mineBlock(difficulty);
 
