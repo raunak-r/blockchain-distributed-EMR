@@ -1,11 +1,15 @@
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
+import java.util.ArrayList;
 import java.awt.event.*;
 import javax.swing.*;
+
+import com.google.gson.GsonBuilder;
 
 class Wallet implements ActionListener{
 	public PrivateKey privateKey;
 	public PublicKey publicKey;
+	public static ArrayList<Block> userTransactions = new ArrayList<Block>();
 
 	JFrame wallet = new JFrame();
 	JLabel labelInsert = new JLabel("Enter New Diagnosis");
@@ -60,15 +64,24 @@ class Wallet implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == buttonAddTrans){
 			String diagnosis = tfInsert.getText();
-			BlockChain.createBlock(diagnosis, Login.username);
+			Block b = BlockChain.createBlock(diagnosis, Login.username);
+			userTransactions.add(b);
 		}
 		else if(e.getSource() == buttonViewUserTrans){
-
+			// show all transactions for current user on terminal
+			viewUserTransactions();
 		}
 		else if(e.getSource() == buttonMenu){
 			wallet.setVisible(false);
 			new Login();
 		}
+	}
+
+	public static void viewUserTransactions(){
+		System.out.println("\n\n****USER MEDICAL HISTORY****");
+        System.out.println("Current User:- " + Login.username);
+		String userchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(userTransactions);
+		System.out.println(userchainJson);
 	}
 
 	public static void main(String args[]){

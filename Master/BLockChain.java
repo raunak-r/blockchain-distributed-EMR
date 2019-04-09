@@ -36,17 +36,19 @@ class BlockChain{
 
 	public static void viewLedger(){
 		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
-		System.out.println("\n\n*******ELECTRONIC MEDICAL LEDGER **********\n");
+		System.out.println("\n\n*******ELECTRONIC MEDICAL LEDGER **********");
 		System.out.println(blockchainJson);
 	}
 
-	public static void createBlock(String diagnosis, String patientUserName){
+	public static Block createBlock(String diagnosis, String patientUserName){
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		Block currBlock = new Block(patientUserName, diagnosis, timeStamp, blockchain.get(blockchain.size() - 1).hash);
 		
-		System.out.println("***Mining Block");
+		System.out.println("***Mining Block***");
 		currBlock.mineBlock(difficulty);
 		blockchain.add(currBlock);
+
+		return currBlock;
 	}
 	
 	public static void createBlockChain(){
