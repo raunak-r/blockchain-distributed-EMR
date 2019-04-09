@@ -1,12 +1,12 @@
 import java.util.Date;
 
 class Data{
-	String patientName;
+	String patientUsername;
 	String diagnosis;
 	String dateAdded;
 
 	public Data(String p, String d, String date){
-		this.patientName = p;
+		this.patientUsername = p;
 		this.diagnosis = d;
 		this.dateAdded = date;
 	}
@@ -29,7 +29,7 @@ class Block extends Data{
 		String calculatedHash = StringUtil.applySha256(
 									previousHash +
 									Long.toString(timestamp) +
-									patientName + diagnosis + dateAdded +
+									patientUsername + diagnosis + dateAdded +
 									Integer.toString(nonce)
 								);
 		return calculatedHash;
