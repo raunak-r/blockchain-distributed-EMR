@@ -60,8 +60,6 @@ class Wallet implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == buttonAddTrans){
 			String diagnosis = tfInsert.getText();
-			System.out.println(diagnosis);
-
 			BlockChain.createBlock(diagnosis, Login.username);
 		}
 		else if(e.getSource() == buttonViewUserTrans){

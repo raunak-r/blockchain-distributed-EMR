@@ -4,7 +4,7 @@ import java.util.Date;
 import com.google.gson.*;
 
 class BlockChain{
-	public static int difficulty = 3;
+	public static int difficulty = 5;
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 
 	public static Boolean isChainValid(){
@@ -36,17 +36,21 @@ class BlockChain{
 
 	public static void viewLedger(){
 		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
-		System.out.println("\n\n*******The Block Chain: **********\n");
+		System.out.println("\n\n*******ELECTRONIC MEDICAL LEDGER **********\n");
 		System.out.println(blockchainJson);
 	}
 
 	public static void createBlock(String diagnosis, String patientUserName){
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-		blockchain.add(new Block(patientUserName, diagnosis, timeStamp, blockchain.get(blockchain.size() - 1).hash));
+		Block currBlock = new Block(patientUserName, diagnosis, timeStamp, blockchain.get(blockchain.size() - 1).hash);
+		
+		System.out.println("***Mining Block");
+		currBlock.mineBlock(difficulty);
+		blockchain.add(currBlock);
 	}
 	
 	public static void createBlockChain(){
-		blockchain.add(new Block("User 1", "Cough and Cold", "20-03-2019", "0"));
+		blockchain.add(new Block("Dummy User", "Cough and Cold", "20-03-2019", "0"));
 		System.out.println("Hash for block 1... ");
 		blockchain.get(0).mineBlock(difficulty);
 

@@ -1,35 +1,30 @@
-import java.util.Date;
-
 class Data{
 	String patientUsername;
 	String diagnosis;
-	String dateAdded;
+	String timestamp;
 
-	public Data(String p, String d, String date){
+	public Data(String p, String d, String timestamp){
 		this.patientUsername = p;
 		this.diagnosis = d;
-		this.dateAdded = date;
+		this.timestamp = timestamp;
 	}
 }
 
 class Block extends Data{
 	public String hash;
 	public String previousHash;
-	private long timestamp;
 	private int nonce;
 
-	public Block(String p, String d, String date, String previousHash){
-		super(p, d, date);
+	public Block(String p, String d, String timestamp, String previousHash){
+		super(p, d, timestamp);
 		this.previousHash = previousHash;
-		this.timestamp = new Date().getTime();
 		this.hash = calculateHash();
 	}
 
 	public String calculateHash(){
 		String calculatedHash = StringUtil.applySha256(
 									previousHash +
-									Long.toString(timestamp) +
-									patientUsername + diagnosis + dateAdded +
+									patientUsername + diagnosis + timestamp +
 									Integer.toString(nonce)
 								);
 		return calculatedHash;

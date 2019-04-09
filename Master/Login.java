@@ -41,6 +41,7 @@ class Login implements ActionListener{
         if(e.getSource() == b1 ){
         	// Login button
             if( verifyUserCredentials(t1.getText(), t2.getText()) == true){
+                System.out.println("Current User:- " + username);
                 new Wallet();
                 f.setVisible(false);
             }
@@ -61,8 +62,6 @@ class Login implements ActionListener{
         try{
             String hashA = StringUtil.applySha256(a);
             String hashB = StringUtil.applySha256(b);
-            System.out.println(hashA);
-            System.out.println(hashB);
 
             File f = new File("userDB.txt");
             BufferedReader buffer = new BufferedReader(new FileReader(f));
