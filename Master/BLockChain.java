@@ -35,24 +35,27 @@ class BlockChain{
 	// public static Boolean verifyPrivateKey(String publicKey, String privateKey){
 		
 	// }
-	
-	public static void main(String args[]) {
-		blockchain.add(new Block("User 1", "Cough and Cold", "", "20-03-2019", "0"));
+	public static void viewLedger(){
+		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
+		System.out.println("\n\n*******The Block Chain: **********\n");
+		System.out.println(blockchainJson);
+	}
+
+	// public static void main(String args[]) {
+	public static void createBlockChain(){
+		blockchain.add(new Block("User 1", "Cough and Cold", "20-03-2019", "0"));
 		System.out.println("Hash for block 1... ");
 		blockchain.get(0).mineBlock(difficulty);
 
-		 blockchain.add(new Block("User 2", "Fever", "", "15-03-2019", blockchain.get(blockchain.size() - 1).hash));
+		 blockchain.add(new Block("User 2", "Fever", "15-03-2019", blockchain.get(blockchain.size() - 1).hash));
 		 System.out.println("Hash for block 2... ");
 		 blockchain.get(1).mineBlock(difficulty);		
 		
-		 blockchain.add(new Block("User 1", "Malaria", "", "20-03-2019", blockchain.get(blockchain.size() - 1).hash));
+		 blockchain.add(new Block("User 1", "Malaria", "20-03-2019", blockchain.get(blockchain.size() - 1).hash));
 		 System.out.println("Hash for block 3... ");
 		 blockchain.get(2).mineBlock(difficulty);
 
 		System.out.println("\nBlockChain is Valid: " + isChainValid());
-
-		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
-		System.out.println("\nThe Block Chain: ");
-		System.out.println(blockchainJson);
+		viewLedger();
 	}
 }

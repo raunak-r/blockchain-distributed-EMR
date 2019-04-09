@@ -3,13 +3,11 @@ import java.util.Date;
 class Data{
 	String patientName;
 	String diagnosis;
-	String nextConnected = "";
 	String dateAdded;
 
-	public Data(String p, String d, String n, String date){
+	public Data(String p, String d, String date){
 		this.patientName = p;
 		this.diagnosis = d;
-		this.nextConnected = n;
 		this.dateAdded = date;
 	}
 }
@@ -20,8 +18,8 @@ class Block extends Data{
 	private long timestamp;
 	private int nonce;
 
-	public Block(String p, String d, String n, String date, String previousHash){
-		super(p, d, n, date);
+	public Block(String p, String d, String date, String previousHash){
+		super(p, d, date);
 		this.previousHash = previousHash;
 		this.timestamp = new Date().getTime();
 		this.hash = calculateHash();
@@ -31,7 +29,7 @@ class Block extends Data{
 		String calculatedHash = StringUtil.applySha256(
 									previousHash +
 									Long.toString(timestamp) +
-									patientName + diagnosis + nextConnected + dateAdded +
+									patientName + diagnosis + dateAdded +
 									Integer.toString(nonce)
 								);
 		return calculatedHash;
