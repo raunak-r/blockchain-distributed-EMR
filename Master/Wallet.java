@@ -41,11 +41,11 @@ class Wallet implements ActionListener{
 	 }
 
 	public void generateAWTWindow(){
-		labelInsert.setBounds(50,75,250,20);
-        tfInsert.setBounds(50,110,250,20);
-        buttonAddTrans.setBounds(50,140,250,25);
+		labelInsert.setBounds(50,50,250,20);
+        tfInsert.setBounds(50,75,250,20);
+        buttonAddTrans.setBounds(50,100,250,25);
         buttonViewUserTrans.setBounds(50,180,250,25);
-        buttonMenu.setBounds(50,235,250,25);
+        buttonMenu.setBounds(50,250,250,25);
         
         wallet.add(labelInsert); wallet.add(tfInsert);
         wallet.add(buttonAddTrans);

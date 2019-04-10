@@ -19,15 +19,17 @@ class Login implements ActionListener{
 
     Login()
     {
-        l1.setBounds(50,50,300,20);
-        t1.setBounds(50,100,300,20);
+    	b3.setBounds(50,30,300,20);
+    	
+    	l1.setBounds(50,110,300,20);
+        t1.setBounds(50,135,300,20);
 
-        l2.setBounds(50,150,300,20);
-        t2.setBounds(50,200,300,20);
+        l2.setBounds(50,160,300,20);
+        t2.setBounds(50,185,300,20);
         
-        b1.setBounds(50,250,300,20);
-        b2.setBounds(50,270,300,20);
-        b3.setBounds(50,300,300,20);
+        b1.setBounds(50,220,300,20);
+        b2.setBounds(50,300,300,20);
+        
 
         f.add(l1);f.add(l2);f.add(t1);f.add(t2);
         f.add(b1); f.add(b2); f.add(b3);
