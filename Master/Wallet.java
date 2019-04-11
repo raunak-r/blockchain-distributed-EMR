@@ -80,8 +80,10 @@ class Wallet implements ActionListener{
 	public static void viewUserTransactions(){
 		System.out.println("\n\n****USER MEDICAL HISTORY****");
         System.out.println("Current User:- " + Login.username);
-		String userchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(userTransactions);
-		System.out.println(userchainJson);
+        
+        ArrayList<Block> userData = BlockChain.getUserData(Login.username);
+		String userDataJson = new GsonBuilder().setPrettyPrinting().create().toJson(userData);
+		System.out.println(userDataJson);
 	}
 
 	public static void main(String args[]){

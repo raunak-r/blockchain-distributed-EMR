@@ -39,7 +39,7 @@ class BlockChain{
 		System.out.println("\n\n*******ELECTRONIC MEDICAL LEDGER **********");
 		System.out.println(blockchainJson);
 	}
-
+	
 	public static Block createBlock(String diagnosis, String patientUserName){
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		Block currBlock = new Block(patientUserName, diagnosis, timeStamp, blockchain.get(blockchain.size() - 1).hash);
@@ -67,4 +67,16 @@ class BlockChain{
 		System.out.println("\nBlockChain is Valid: " + isChainValid());
 		viewLedger();
 	}
+	
+	public static ArrayList<Block> getUserData(String patientUsername) {
+		ArrayList<Block> userData = new ArrayList<Block>();
+		
+		for(int i = 0; i<blockchain.size(); i++) {
+			if(blockchain.get(i).patientUsername.equals(patientUsername)) {
+				userData.add(blockchain.get(i));
+			}
+		}
+		return userData;
+	}
+	
 }
