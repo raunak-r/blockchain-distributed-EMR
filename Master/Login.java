@@ -86,7 +86,7 @@ class Login implements ActionListener{
     }
     
     public static void main(String args[]){
-        BlockChain.createBlockChain();
+        BlockChain.initiateBlockChain();
         new Login();
     }
 }
