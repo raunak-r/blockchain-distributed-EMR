@@ -5,6 +5,7 @@ import java.io.File;
 
 class Login implements ActionListener{
     static String username;
+    static int B;
 
     JFrame f=new JFrame();
 
@@ -74,6 +75,7 @@ class Login implements ActionListener{
 
                 if(line[0].equals(hashA) && line[1].equals(hashB)){
                     username = hashA;
+                    B = Integer.parseInt(line[3]);
                     buffer.close();
                     return true;
                 }

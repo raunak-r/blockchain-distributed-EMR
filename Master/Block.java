@@ -1,5 +1,3 @@
-import java.security.*;
-
 class Data{
 	String patientUsername;
 	String diagnosis;
@@ -16,15 +14,11 @@ class Block extends Data{
 	public String hash;
 	public String previousHash;
 	private int nonce;
-//	public byte[] signature;
-//	public PublicKey publicKey;
 
 	public Block(String p, String d, String timestamp, String previousHash){
 		super(p, d, timestamp);
 		this.previousHash = previousHash;
 		this.hash = calculateHash();
-//		this.publicKey = publicKey;
-//		this.signature = signature;
 	}
 
 	public String calculateHash(){

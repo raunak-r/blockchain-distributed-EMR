@@ -1,11 +1,11 @@
-import java.security.*;
+//import java.security.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import com.google.gson.*;
 
 class BlockChain{
-	public static int difficulty = 5;
+	public static int difficulty = 4;
 	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 
 	public static Boolean verifyTransaction(){
@@ -16,11 +16,6 @@ class BlockChain{
 		for(int i=1; i<blockchain.size(); i++){
 			previousBlock = blockchain.get(i - 1);
 			currentBlock = blockchain.get(i);
-
-//			if(StringUtil.verifyECDSASig(currentBlock.publicKey, currentBlock.diagnosis, currentBlock.signature) != true){
-//				System.out.println("Illegal Access Token. Unable to verify Signature.");
-//				return false;
-//			}
 
 			if(!previousBlock.hash.equals(currentBlock.previousHash)){
 				System.out.println("Previous Hashes Not Equal");
@@ -44,13 +39,14 @@ class BlockChain{
 		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
 		System.out.println("\n\n*******ELECTRONIC MEDICAL LEDGER **********");
 		System.out.println(blockchainJson);
+		
+		System.out.println("\nBlockChain is Valid: " + verifyTransaction());
 	}
 	
 	public static void createBlock(String patientUserName, String diagnosis){
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		Block currBlock = new Block(patientUserName, diagnosis, timeStamp,
 									blockchain.get(blockchain.size() - 1).hash);
-//									publicKey, signature);
 		System.out.println("***Mining Block***");
 		currBlock.mineBlock(difficulty);
 		blockchain.add(currBlock);

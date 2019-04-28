@@ -4,31 +4,32 @@ import javax.swing.*;
 import com.google.gson.GsonBuilder;
 
 class Wallet implements ActionListener{
-//	public PrivateKey privateKey;
-//	public PublicKey publicKey;
-//	byte[] signature;
-	
 	JFrame wallet = new JFrame();
 	JLabel labelInsert = new JLabel("Enter New Diagnosis");
 	JTextField tfInsert = new JTextField();
-	
+	JLabel labelToken = new JLabel("Enter Token");
+	JTextField tfToken = new JTextField();
+
 	JButton buttonAddTrans = new JButton("Add New Diagnosis");
 	JButton buttonViewUserTrans = new JButton("View Diagnosis History");
 	JButton buttonMenu = new JButton("Logout");
 	
 	public Wallet(){
-//		generateKeyPair();
 		generateAWTWindow();
 	}
 	
 	public void generateAWTWindow(){
-		labelInsert.setBounds(50,25,250,20);
-        tfInsert.setBounds(50,50,250,20);
+		labelInsert.setBounds(50,10,250,20);
+        tfInsert.setBounds(50,30,250,20);
+        labelToken.setBounds(50,50,250,20);
+        tfToken.setBounds(50,70,250,20);
+
         buttonAddTrans.setBounds(50,100,250,25);
         buttonViewUserTrans.setBounds(50,180,250,25);
         buttonMenu.setBounds(50,250,250,25);
         
         wallet.add(labelInsert); wallet.add(tfInsert);
+        wallet.add(labelToken); wallet.add(tfToken);
         wallet.add(buttonAddTrans);
         wallet.add(buttonViewUserTrans);
         wallet.add(buttonMenu);
@@ -45,8 +46,17 @@ class Wallet implements ActionListener{
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == buttonAddTrans){
 			String diagnosis = tfInsert.getText();
-//			signature = StringUtil.applyECDSASig(privateKey, diagnosis);
-			BlockChain.createBlock(Login.username, diagnosis);
+			int token = Integer.parseInt(tfToken.getText());
+			if(ZKP(token, Login.B) != true) {
+				System.out.println("Illegal Access Token. Unable to verify Signature.\n");
+				wallet.setVisible(false);
+				new Wallet();
+			}
+			else {
+				BlockChain.createBlock(Login.username, diagnosis);
+				wallet.setVisible(false);
+				new Wallet();
+			}
 		}
 		else if(e.getSource() == buttonViewUserTrans){
 			viewUserTransactions();
@@ -56,24 +66,28 @@ class Wallet implements ActionListener{
 			new Login();
 		}
 	}
-
-//	public void generateKeyPair() {
-//		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-//		try{
-//			KeyPairGenerator keyGen = KeyPairGenerator.getInstance("ECDSA","BC");
-//			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-//			ECGenParameterSpec ecSpec = new ECGenParameterSpec("prime192v1");
-//			// 
-//			keyGen.initialize(ecSpec, random);   //256 bytes provides an acceptable security level
-//	        	KeyPair keyPair = keyGen.generateKeyPair();
-//	        	// Set the public and private keys from the keyPair
-//	        	privateKey = keyPair.getPrivate();
-//	        	publicKey = keyPair.getPublic();
-//		}catch(Exception e) {
-//			throw new RuntimeException(e);
-//		}
-//	}
 	
+	public static Boolean ZKP(int token, int B){
+//		System.out.println("token:" + (token) + " B:" + (B));
+		
+		int r = (int) ((Math.random() * (10 - 0)) + 0);
+		int h = (int) ((Math.pow(2,r))%11);
+		
+		int bit;
+		if(Math.random() < 0.001) { bit = 0; }
+			else { bit = 1; }
+		
+		int s = (r + bit*token)%(11 - 1);
+		int lhs = (int) Math.pow(2, s) % (11);
+		int rhs =  (h * ((int) Math.pow(B, bit)) % (11));
+		System.out.println("\nlhs: " + lhs + " rhs:" + rhs);
+		if(lhs != rhs) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
 	public static void viewUserTransactions(){
 		System.out.println("\n\n****USER MEDICAL HISTORY****");
         System.out.println("Current User:- " + Login.username);
